@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_power_cloud/screens/crawler_internal_storage_screen.dart';
@@ -6,6 +7,7 @@ import 'package:personal_power_cloud/theme/pallete.dart';
 import 'package:personal_power_cloud/utils/screen_utils.dart';
 import 'package:personal_power_cloud/widgets/custom_popup.dart';
 import 'package:personal_power_cloud/widgets/login_field.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class NextScreen extends StatefulWidget {
   const NextScreen({super.key});
@@ -27,6 +29,48 @@ class _NextScreenState extends State<NextScreen> {
     'Name of your childhood friend?',
     'Childhood hero?',
   ];
+
+  // Método para obter o ID do dispositivo
+  Future<void> getDeviceId() async {
+    try {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      
+      if (Platform.isAndroid) {
+        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        if (kDebugMode) {
+          print('ID do dispositivo Android: ${androidInfo.id}');
+        }
+      } else if (Platform.isIOS) {
+        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+        if (kDebugMode) {
+          print('ID do dispositivo iOS: ${iosInfo.identifierForVendor}');
+        }
+      } else if (Platform.isWindows) {
+        WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
+        if (kDebugMode) {
+          print('ID do dispositivo Windows: ${windowsInfo.deviceId}');
+        }
+      } else if (Platform.isLinux) {
+        LinuxDeviceInfo linuxInfo = await deviceInfo.linuxInfo;
+        if (kDebugMode) {
+          print('ID do dispositivo Linux: ${linuxInfo.machineId}');
+        }
+      } else if (Platform.isMacOS) {
+        MacOsDeviceInfo macInfo = await deviceInfo.macOsInfo;
+        if (kDebugMode) {
+          print('ID do dispositivo macOS: ${macInfo.systemGUID}');
+        }
+      } else {
+        if (kDebugMode) {
+          print('Plataforma não suportada.');
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Erro ao obter o ID do dispositivo: $e');
+      }
+    }
+  }
 
   void showCustomPopup({
     required BuildContext context,
@@ -378,7 +422,7 @@ class _NextScreenState extends State<NextScreen> {
                     side: const BorderSide(color: Pallete.borderColor, width: 1),
                   ),
                 ),
-                onPressed: () {
+                onPressed: () async {
 
                   // Navigator.push(
                   //   context,
@@ -465,6 +509,10 @@ class _NextScreenState extends State<NextScreen> {
                   if (kDebugMode) {
                     print('Botão register pressionado');
                   }
+
+                  // Obtém o ID do dispositivo antes de navegar para a próxima tela
+                  await getDeviceId();
+
                 },
                 child: const Text(
                   'Register',
@@ -743,7 +791,7 @@ class _NextScreenState extends State<NextScreen> {
                     side: const BorderSide(color: Pallete.borderColor, width: 1),
                   ),
                 ),
-                onPressed: () {
+                onPressed: () async {
 
                   // Navigator.push(
                   //   context,
@@ -830,6 +878,10 @@ class _NextScreenState extends State<NextScreen> {
                   if (kDebugMode) {
                     print('Botão register pressionado');
                   }
+
+                  // Obtém o ID do dispositivo antes de navegar para a próxima tela
+                  await getDeviceId();
+
                 },
                 child: const Text(
                   'Register',

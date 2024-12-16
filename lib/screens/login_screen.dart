@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,7 @@ import 'package:personal_power_cloud/screens/forgot_password_screen.dart';
 import 'package:personal_power_cloud/screens/register_screen.dart';
 import 'package:personal_power_cloud/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,7 +25,49 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _login() {
+  // Método para obter o ID do dispositivo
+  Future<void> getDeviceId() async {
+    try {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      
+      if (Platform.isAndroid) {
+        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        if (kDebugMode) {
+          print('ID do dispositivo Android: ${androidInfo.id}');
+        }
+      } else if (Platform.isIOS) {
+        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+        if (kDebugMode) {
+          print('ID do dispositivo iOS: ${iosInfo.identifierForVendor}');
+        }
+      } else if (Platform.isWindows) {
+        WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
+        if (kDebugMode) {
+          print('ID do dispositivo Windows: ${windowsInfo.deviceId}');
+        }
+      } else if (Platform.isLinux) {
+        LinuxDeviceInfo linuxInfo = await deviceInfo.linuxInfo;
+        if (kDebugMode) {
+          print('ID do dispositivo Linux: ${linuxInfo.machineId}');
+        }
+      } else if (Platform.isMacOS) {
+        MacOsDeviceInfo macInfo = await deviceInfo.macOsInfo;
+        if (kDebugMode) {
+          print('ID do dispositivo macOS: ${macInfo.systemGUID}');
+        }
+      } else {
+        if (kDebugMode) {
+          print('Plataforma não suportada.');
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Erro ao obter o ID do dispositivo: $e');
+      }
+    }
+  }
+
+  Future<void> _login() async {
     // Imprime o valor do controlador de texto _emailController
     if (kDebugMode) {
       print('Email: ${_emailController.text}');
@@ -54,6 +98,10 @@ class _LoginScreenState extends State<LoginScreen> {
     if (kDebugMode) {
       print('Botão login pressionado');
     }
+
+    // Obtém o ID do dispositivo antes de navegar para a próxima tela
+    await getDeviceId();
+
   }
 
   Future<bool> _onWillPop(BuildContext context) async {
