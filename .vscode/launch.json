@@ -1,0 +1,55 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "personal_power_cloud (Galaxy S24 Ultra API 29)",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "emulator-5554",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "personal_power_cloud (web)",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "chrome",
+            "program": "lib/main.dart"
+        },
+        {
+            "name": "personal_power_cloud (Windows)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "-d",
+                "windows"
+            ]
+        },
+        {
+            "name": "personal_power_cloud",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "personal_power_cloud (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "personal_power_cloud (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "personal_power_cloud (físico)",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "2720423d3d1c7ece"
+        }
+    ]
+}
