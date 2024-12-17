@@ -9,6 +9,7 @@ import 'package:personal_power_cloud/theme/pallete.dart';
 import 'package:personal_power_cloud/utils/screen_utils.dart';
 import 'package:personal_power_cloud/widgets/navigation_buttons.dart';
 import 'package:personal_power_cloud/screens/crawler_internal_storage_screen.dart';
+import 'package:personal_power_cloud/widgets/search_bar.dart' as custom;
 
 class LogoutScreen extends StatelessWidget {
   const LogoutScreen({super.key});
@@ -94,22 +95,7 @@ class LogoutScreen extends StatelessWidget {
 
             // SizedBox(height: getHeight(context, 0.046)),
 
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.3,
-              height: MediaQuery.of(context).size.height * 0.06,
-              child: _buildSearchBar(
-                context,
-                'Search',
-                'assets/images/search_blue.png',
-                () {
-                  if (kDebugMode) {
-                    print('Botão search pressionado');
-                  }
-                  // Implementar lógica de pesquisa para a barra 1
-                },
-                searchController,
-              ),
-            ),
+            const custom.SearchBar(), // Apenas insere o widget.
 
             // SizedBox(height: getHeight(context, 0.30)),
 
@@ -294,22 +280,7 @@ class LogoutScreen extends StatelessWidget {
 
             // SizedBox(height: getHeight(context, 0.046)),
 
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.06,
-              child: _buildSearchBar(
-                context,
-                'Search',
-                'assets/images/search_blue.png',
-                () {
-                  if (kDebugMode) {
-                    print('Botão search pressionado');
-                  }
-                  // Implementar lógica de pesquisa para a barra 1
-                },
-                searchController,
-              ),
-            ),
+            const custom.SearchBar(), // Apenas insere o widget.
 
             // SizedBox(height: getHeight(context, 0.30)),
 

@@ -25,6 +25,7 @@ import 'package:personal_power_cloud/widgets/navigation_buttons.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:personal_power_cloud/theme/pallete.dart';
 import 'package:personal_power_cloud/utils/screen_utils.dart';
+import 'package:personal_power_cloud/widgets/search_bar.dart' as custom;
 
 // width: MediaQuery.of(context).size.width * 0.9, // 90% da largura da tela
 // height: MediaQuery.of(context).size.height * 0.06, // 6% da altura da tela
@@ -90,34 +91,6 @@ class CrawlerInternalStorageScreenState extends State<CrawlerInternalStorageScre
 
   get file => null;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   if (!kIsWeb){
-  //     if (Platform.isAndroid) {
-  //       if (widget.initialPath.isEmpty) {
-  //         _requestPermissionsAndLoadFiles();
-  //       } else {
-  //         loadFiles(widget.initialPath);
-  //       }
-  //     }
-  //     if(Platform.isWindows){
-  //       if (widget.initialPath.isEmpty) {
-  //         getDrives();
-  //       } else {
-  //         loadFiles(widget.initialPath);
-  //       }
-  //     }
-  //   } else {
-  //     if (widget.initialPath.isEmpty) {
-  //       getDrives();
-  //     } else {
-  //       loadFiles(widget.initialPath);
-  //     }
-  //   }
-  //   loadStates();
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -128,8 +101,6 @@ class CrawlerInternalStorageScreenState extends State<CrawlerInternalStorageScre
         title: 'Permission',
         message: 'Allow Personal Power Cloud to access photos, media and files on your device?',
         width: MediaQuery.of(context).size.width * 0.9, // Define a largura
-        // height: MediaQuery.of(context).size.height * 0.4, // Define a altura
-
         actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -149,12 +120,6 @@ class CrawlerInternalStorageScreenState extends State<CrawlerInternalStorageScre
                   ),
                   onPressed: () {
                     Navigator.of(context).pop(); // Fecha o popup
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const CrawlerInternalStorageScreen(),
-                    //   ),
-                    // );
                   },
                   child: const Text(
                     'Allow',
@@ -513,12 +478,6 @@ class CrawlerInternalStorageScreenState extends State<CrawlerInternalStorageScre
     });
   }
 
-  void _onSearchQueryChanged(String query) {
-    setState(() {
-      searchQuery = query;
-    });
-  }
-
   List<FileSystemEntity> _getFilteredFileList() {
     if (searchQuery.isEmpty) {
       return fileList;
@@ -561,14 +520,13 @@ class CrawlerInternalStorageScreenState extends State<CrawlerInternalStorageScre
       child: Scaffold(
         backgroundColor: Pallete.backgroundColor,
         body: SafeArea( // Garante que o conteúdo não fique atrás da barra de status
-          // child: SingleChildScrollView(
           child: Center(
               child: Column(
                 children: [
 
                   // SizedBox(height: getHeight(context, 0.046)),
 
-                  _buildSearchBar(),
+                  const custom.SearchBar(), // Apenas insere o widget.
 
                   // SizedBox(height: getHeight(context, 0.02)),
 
@@ -603,32 +561,9 @@ class CrawlerInternalStorageScreenState extends State<CrawlerInternalStorageScre
 
                   // SizedBox(height: getHeight(context, 0.02)),
 
-                  //_buildFileList(),
-
                   Expanded(
                     child: _buildFileList(),
                   ),
-
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width * 0.9, // 90% da largura da tela
-                  //   // height: MediaQuery.of(context).size.height * 0.06, // 6% da altura da tela
-                  //   height: MediaQuery.of(context).size.height * 0.6, // Defina a altura do container
-                  //   decoration: BoxDecoration(
-                  //     color: const Color(0xFF0061A8),
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     border: Border.all(color: const Color(0xFF00FF57), width: 1),
-                  //   ),
-                  //   child: ListView.builder(
-                  //     itemCount: fileList.length,
-                  //     itemBuilder: (context, index) {
-                  //       final file = fileList[index];
-                  //       return ListTile(
-                  //         title: Text(file.path ?? 'Sem nome'),
-                  //         //subtitle: Text(file.path ?? 'Sem ID'),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
 
                   isBottomActionBarVisible
                       ? buildNavigationBar(context, 'crawler')
@@ -637,7 +572,7 @@ class CrawlerInternalStorageScreenState extends State<CrawlerInternalStorageScre
               ),
             ),
           ),
-        // ),
+
         bottomNavigationBar: buildBottomNavigationBar(
           context,
           ultimo,
@@ -645,48 +580,7 @@ class CrawlerInternalStorageScreenState extends State<CrawlerInternalStorageScre
           navigateBack,
           resetFileList,
         ),
-      ),
-    );
-  }
 
-  Widget _buildSearchBar() {
-    return SizedBox(
-      width: getWidth(context, 0.9),
-      height: getHeight(context, 0.06),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Pallete.boxColor,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: Pallete.borderColor,
-            width: 1),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: TextField(
-                  onChanged: _onSearchQueryChanged,
-                  style: const TextStyle(color: Pallete.userTextColor),
-                  decoration: InputDecoration(hintText: 'Search',
-                    hintStyle: const TextStyle(color: Pallete.backgroundTextColor),
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(vertical: getHeight(context, 0.02)),
-                  ),
-                ),
-              ),
-            ),
-            IconButton(
-              icon: Image.asset('assets/images/search_blue.png'),
-              onPressed: () {
-                if (kDebugMode) {
-                  print('Search button pressed');
-                }
-              },
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -793,7 +687,6 @@ class CrawlerInternalStorageScreenState extends State<CrawlerInternalStorageScre
       print('appTrashFilesList $appTrashFilesList');
     }
 
-    // final targetPath = trashFolderPath!.isNotEmpty ? trashFolderPath : '';
     // Definindo o targetPath com fallback para getDefaultTrashPath
     final targetPath = trashFolderPath?.isNotEmpty == true ? trashFolderPath : await getDefaultTrashPath();
 
@@ -924,8 +817,6 @@ class CrawlerInternalStorageScreenState extends State<CrawlerInternalStorageScre
       print(fileList.length);
     }
     return SizedBox(
-      // width: getWidth(context, 0.9),
-      // height: getHeight(context, isBottomActionBarVisible ? 0.54 : 0.6),
       width: MediaQuery.of(context).size.width * 0.9, 
       height: MediaQuery.of(context).size.height * 0.06,  
       child: ListView.builder(
@@ -1029,7 +920,6 @@ List<Widget> buildBottomNavButtons(
     if (resetTheFileList != null) {
       resetTheFileList();
     }
-    // clearFilelistStates();
   }
 
   if (kDebugMode) {

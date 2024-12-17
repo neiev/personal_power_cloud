@@ -9,6 +9,7 @@ import 'package:personal_power_cloud/theme/pallete.dart';
 import 'package:personal_power_cloud/utils/screen_utils.dart';
 import 'package:personal_power_cloud/widgets/navigation_buttons_more.dart';
 import 'package:personal_power_cloud/screens/crawler_internal_storage_screen.dart';
+import 'package:personal_power_cloud/widgets/search_bar.dart' as custom;
 
 class CrawlerRsyncScreen extends StatefulWidget {
   const CrawlerRsyncScreen({super.key});
@@ -130,46 +131,7 @@ class _CrawlerRsyncScreenState extends State<CrawlerRsyncScreen> {
 
                   // SizedBox(height: getHeight(context, 0.046)),
 
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9, // 90% da largura da tela
-                    height: MediaQuery.of(context).size.height * 0.06, // 6% da altura da tela
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      decoration: BoxDecoration(
-                        color: Pallete.boxColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Pallete.borderColor, width: 1),
-                      ),
-                      child: Row(
-                        children: [
-                          const Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Search',
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                  color: Pallete.backgroundTextColor,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            icon: Image.asset(
-                              'assets/images/search_blue.png',
-                              width: 36,
-                              height: 36,
-                            ),
-                            onPressed: () {
-                              if (kDebugMode) {
-                                print('Search button pressed');
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  const custom.SearchBar(), // Apenas insere o widget.
 
                   // SizedBox(height: getHeight(context, 0.02)),
 

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:personal_power_cloud/screens/trash_screen.dart';
 // ignore: depend_on_referenced_packages, library_prefixes
 import 'package:path/path.dart' as pathLib;
 

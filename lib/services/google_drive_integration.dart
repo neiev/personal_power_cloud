@@ -12,18 +12,12 @@ class GoogleDriveIntegration {
     '825969127473-7ccjklac1c1apl12o0ln7mkkdd8l0111.apps.googleusercontent.com', // Substitua pelo seu Client ID
     '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', // Substitua pelo seu Client Secret (se necessário)
   );
-  // web abaixo
-  // final _clientId = ClientId(
-  //   '825969127473-j97i6n33vic8uicani4cqhj1809rjeng.apps.googleusercontent.com', // Substitua pelo seu Client ID
-  //   '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', // Substitua pelo seu Client Secret (se necessário)
-  // );
   
   final _scopes = [
-    DriveApi.driveFileScope, 
-    DriveApi.driveScope, 
+    DriveApi.driveFileScope,
+    DriveApi.driveScope,
     DriveApi.driveMetadataScope
   ];
-  var _authClient;
 
   // Método para login no Google Drive (funciona em desktop e mobile)
   Future<void> loginToGoogleDrive(BuildContext context) async {
@@ -42,13 +36,12 @@ class GoogleDriveIntegration {
           if (kDebugMode) {
             print(uri);
           }
-          // Abre a URL no navegador
-          //_openUrl(url);
 
           _launchURL(url);  // Abre a URL no navegador
         },
       ); 
       // Salve o cliente autenticado no AuthProvider
+      // ignore: use_build_context_synchronously
       Provider.of<AuthProvider>(context, listen: false).setAuthClient(authClient);
     } catch (e) {
       if (kDebugMode) {
@@ -79,35 +72,6 @@ class GoogleDriveIntegration {
     }
   }
 
-  // // Função para abrir a URL de autenticação no navegador
-  // void _openUrl(Uri url) {
-  //   if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-  //     // Para desktop, abrir diretamente no navegador
-  //     Process.run('cmd', ['/c', 'start', url.toString()]);
-  //   }
-  // }
-
-  // Função para abrir a URL de autenticação no navegador
-  void _openUrl(String url) {
-    if (Platform.isWindows) {
-      if (kDebugMode) {
-        print('É windows');
-      }
-      Process.run('cmd', ['/c', 'start', url]);
-    } else if (Platform.isMacOS) {
-      Process.run('open', [url]);
-    } else if (Platform.isLinux) {
-      Process.run('xdg-open', [url]);
-    } else {
-      // Para mobile (Android e iOS), usar flutter_webview ou um navegador embutido
-      if (kDebugMode) {
-        print(url);
-        String os = Platform.operatingSystem;
-        print("$os - Abra este link para autenticar: $url");
-      }
-    }
-  }
-
   // Função para logout (encerra o cliente autenticado)
   Future<void> logout() async {
     if (kDebugMode) {
@@ -125,7 +89,6 @@ class GoogleDriveIntegration {
       print('Arquivos: ${files.files}');
     }
 
-    var fileList = await driveApi.files.list();
     if (kDebugMode) {
       print("Listando arquivos...");
     }

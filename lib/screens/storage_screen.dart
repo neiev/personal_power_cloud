@@ -10,6 +10,7 @@ import 'package:personal_power_cloud/widgets/navigation_buttons.dart';
 import 'package:personal_power_cloud/screens/crawler_internal_storage_screen.dart';
 import 'package:personal_power_cloud/screens/storage_legacy_screen.dart';
 import 'package:personal_power_cloud/services/google_drive_integration.dart';
+import 'package:personal_power_cloud/widgets/search_bar.dart' as custom;
 
 class StorageScreen extends StatefulWidget {
   const StorageScreen({super.key});
@@ -113,44 +114,7 @@ class _StorageScreenState extends State<StorageScreen> {
 
                   // SizedBox(height: getHeight(context, 0.046)),
 
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Pallete.boxColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Pallete.borderColor, width: 1),
-                      ),
-                      child: Row(
-                        children: [
-                          const Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Search',
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                  color: Pallete.backgroundTextColor,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            icon: Image.asset('assets/images/search_blue.png',
-                              width: 36,
-                              height: 36,
-                            ),
-                            onPressed: () {
-                              if (kDebugMode) {
-                                print('Search button pressed');
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  const custom.SearchBar(), // Apenas insere o widget.
 
                   // SizedBox(height: getHeight(context, 0.02)),
 

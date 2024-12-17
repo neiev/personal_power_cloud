@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_power_cloud/theme/pallete.dart';
 import 'package:personal_power_cloud/utils/screen_utils.dart';
 import 'package:personal_power_cloud/widgets/navigation_buttons.dart';
 import 'package:personal_power_cloud/screens/crawler_internal_storage_screen.dart';
 import 'package:personal_power_cloud/screens/recovery_screen.dart';
+import 'package:personal_power_cloud/widgets/search_bar.dart' as custom;
 
 class RemoteAccessScreen extends StatelessWidget {
   const RemoteAccessScreen({super.key});
@@ -24,7 +24,7 @@ class RemoteAccessScreen extends StatelessWidget {
       onWillPop: () => _onWillPop(context), // Vincula o método _onWillPop
       child: Scaffold(
         backgroundColor: Pallete.backgroundColor,
-        body: SafeArea(
+        body: const SafeArea(
           child: SingleChildScrollView(
             child: Center(
               child: Column(
@@ -32,47 +32,8 @@ class RemoteAccessScreen extends StatelessWidget {
 
                   // SizedBox(height: getHeight(context, 0.046)),
 
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9, // 90% da largura da tela
-                    height: MediaQuery.of(context).size.height * 0.06, // 6% da altura da tela
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      decoration: BoxDecoration(
-                        color: Pallete.boxColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Pallete.borderColor, width: 1),
-                      ),
-                      child: Row(
-                        children: [
-                          const Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Enter the remote address',
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                  color: Pallete.backgroundTextColor,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            icon: Image.asset(
-                              'assets/images/search_blue.png',
-                              width: 36,
-                              height: 36,
-                            ),
-                            onPressed: () {
-                              // Implemente a lógica de pesquisa aqui
-                              if (kDebugMode) {
-                                print('Search button pressed');
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  custom.SearchBar(), // Apenas insere o widget.
+
                 ],
               ),
             ),
