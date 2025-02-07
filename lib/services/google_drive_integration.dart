@@ -9,8 +9,8 @@ import 'package:personal_power_cloud/providers/auth_provider.dart';
 
 class GoogleDriveIntegration {
   final _clientId = ClientId(
-    '825969127473-7ccjklac1c1apl12o0ln7mkkdd8l0111.apps.googleusercontent.com', // Substitua pelo seu Client ID
-    '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', // Substitua pelo seu Client Secret (se necessário)
+    'YOUR_CLIENT_ID', // Substitua pelo seu Client ID
+    'YOUR_CLIENT_SECRET', // Substitua pelo seu Client Secret (se necessário)
   );
   
   final _scopes = [
