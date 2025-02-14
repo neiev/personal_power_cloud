@@ -1,8 +1,8 @@
 # Personal Power Cloud
 
-Personal Power Cloud é um aplicativo Flutter que permite gerenciar e sincronizar arquivos em diferentes serviços de armazenamento em nuvem, como Google Drive, Dropbox, OneDrive, e também em dispositivos locais e remotos.
+Personal Power Cloud is a Flutter application that allows you to manage and synchronize files across different cloud storage services such as Google Drive, Dropbox, OneDrive, as well as local and remote devices.
 
-## Estrutura do Projeto
+## Project Structure
 
 ```plaintext
 .
